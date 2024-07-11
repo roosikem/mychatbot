@@ -1,8 +1,8 @@
 package com.example.chatbot;
 
-import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 @org.springframework.stereotype.Service
 public class Service {
@@ -43,10 +43,7 @@ public class Service {
 
         // Process message using ChatBot
         ChatBot chatBot = chatBotManager.getChatBot(conversationId);
-        Response response = chatBot.processMessage(chatMessage.getMessageText());
-
-        // Store response
-        responseMap.get(conversationId).add(response.getMessageText());
+        chatBot.onSessionActivity(chatMessage);
 
         // Continue processing the next message in the queue
         processNextMessage(conversationId);
